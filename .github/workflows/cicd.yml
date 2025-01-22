@@ -74,11 +74,10 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install build dependencies
         run: |
-          python -m venv venv
-          . venv/bin/activate
-          pip install build twine wheel setuptools
+          python -m pip install --upgrade pip
+          pip install setuptools wheel build twine
 
       - name: Verify setup.py exists
         run: |
@@ -87,10 +86,14 @@ jobs:
             exit 1
           fi
 
-      - name: Build package
+      - name: Create README if not exists
         run: |
-          . venv/bin/activate
-          python -m build --sdist --wheel
+          if [ ! -f README.md ]; then
+            echo "# Project Description" > README.md
+          fi
+
+      - name: Build package
+        run: python -m build
         
       - name: List built distributions
         run: ls -l dist/
@@ -100,6 +103,4 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-        run: |
-          . venv/bin/activate
-          twine upload dist/*
+        run: twine upload dist/*
