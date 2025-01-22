@@ -1,1 +1,14 @@
 name: Python package
+
+on:
+  push:
+    branches:
+      - main    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: list files
+        run: |
+          ls -l

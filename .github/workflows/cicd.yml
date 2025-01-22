@@ -19,3 +19,7 @@ jobs:
       - name: list files
         run: |
           tree
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
