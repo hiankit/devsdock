@@ -1,20 +1,18 @@
 name: CI/CD Pipeline
-
-on:
+'on':
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
-
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      uses: actions/checkout@v4
-      name: Setup python 3.9
+      - uses: actions/checkout@v4
+      - name: Setup python 3.9
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
-        run: |
-          echo "😈😈😈 Hahaha this is from Yusuf 😈😈😈"
+        run: "echo \"😈8😈8😈8 Hahaha this is from Yusuf 😈8😈8😈8\"\n"
