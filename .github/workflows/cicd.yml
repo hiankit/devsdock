@@ -78,14 +78,25 @@ jobs:
         run: |
           python -m venv venv
           . venv/bin/activate
-          pip install build twine
+          pip install build twine wheel setuptools
+
+      - name: Verify setup.py exists
+        run: |
+          if [ ! -f setup.py ]; then
+            echo "Error: setup.py not found"
+            exit 1
+          fi
 
       - name: Build package
         run: |
           . venv/bin/activate
-          python -m build
+          python -m build --sdist --wheel
+        
+      - name: List built distributions
+        run: ls -l dist/
 
       - name: Publish to PyPI
+        if: success()
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
