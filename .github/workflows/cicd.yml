@@ -9,3 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # 这里可以添加您的构建步骤
+      - name: Setup build environment
+        run: |
+          echo "Setting up build environment"
+          # 添加您的构建命令
