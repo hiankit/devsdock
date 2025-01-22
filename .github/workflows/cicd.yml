@@ -33,5 +33,4 @@ jobs:
 
       - name: Unit Test
         run: |
-          python -v
-          pytest
+          pytest -v
