@@ -33,4 +33,4 @@ jobs:
 
       - name: Unit Test
         run: |
-          python -m unittest
+          pytest tests/test_app.py
