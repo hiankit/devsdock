@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Setup build environment
+      - name: Setup python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
         run: |
           echo "😈😈😈 Hahaha this is from Yusuf 😈😈😈"
