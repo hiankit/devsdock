@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        language: [node, python]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        if: matrix.language == 'node'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Set up Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install Node.js dependencies
+        if: matrix.language == 'node'
+        run: npm install
+
+      - name: Install Python dependencies
+        if: matrix.language == 'python'
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run Node.js tests
+        if: matrix.language == 'node'
+        run: npm test
+
+      - name: Run Python tests
+        if: matrix.language == 'python'
+        run: |
+          . venv/bin/activate
+          pytest
