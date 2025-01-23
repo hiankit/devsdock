@@ -1,4 +1,5 @@
 name: CI/CD Pipeline
+
 on:
   push:
     branches:
@@ -6,17 +7,20 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup python 3.9
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.9
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
 
-      - name: list files
+      - name: List files
         run: |
           tree
 
@@ -34,3 +38,16 @@ jobs:
       - name: Unit Test
         run: |
           pytest -v
+
+  deploy:
+    runs-on: ubuntu-latest]
+    needs: build
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.dockerusername }}
+          password: ${{ secrets.dockerpassword }}
