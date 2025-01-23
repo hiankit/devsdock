@@ -52,5 +52,7 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          docker build -t ${{ secrets.dockerusername }}/my-app:latest .
-          docker push ${{ secrets.dockerusername }}/my-app:latest
+          docker build -t hiankit/devOps-docker:${{github.sha}}
+          docker build -t hiankit/devOps-docker:${{github.sha}}
+          # docker build -t ${{ secrets.dockerusername }}/my-app:latest .
+          # docker push ${{ secrets.dockerusername }}/my-app:latest
