@@ -52,12 +52,12 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          docker build -t hiankit/devOps-docker:${{ github.sha }} .
-          docker push hiankit/devOps-docker:${{ github.sha }}
+          docker build -t hiankit/devops-docker:${{ github.sha }} .
+          docker push hiankit/devops-docker:${{ github.sha }}
 
       - name: Deploy Container App
         uses: azure/webapps-deploy@v2
         with:
           app-name: "devOps-docker"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: hiankit/devOps-docker:${{ github.sha }}
+          images: hiankit/devops-docker:${{ github.sha }}
